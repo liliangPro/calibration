@@ -24,7 +24,7 @@ class qt_cy(QMainWindow):
         self.cali_init()
     
     def qt_init(self):
-        self.ui = QtUiTools.QUiLoader().load(f"model/calibraion.ui")  # 加载文件
+        self.ui = QtUiTools.QUiLoader().load(f"{os.path.dirname(__file__)}/ui/calibraion.ui")  # 加载文件
         self.ui.pushButton.clicked.connect(lambda: self.button_multi(msg="open_cam"))
         self.ui.pushButton_2.clicked.connect(lambda: self.button_multi(msg="save_data"))
         # 终端显示
