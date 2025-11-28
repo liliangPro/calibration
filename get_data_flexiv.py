@@ -24,7 +24,7 @@ class qt_cy(QMainWindow):
         self.cali_init()
     
     def qt_init(self):
-        self.ui = QtUiTools.QUiLoader().load(f"{os.path.dirname(__file__)}/ui/calibraion.ui")  # 加载文件
+        self.ui = QtUiTools.QUiLoader().load(f"{os.path.dirname(__file__)}/ui/calibration.ui")  # 加载文件
         self.ui.pushButton.clicked.connect(lambda: self.button_multi(msg="open_cam"))
         self.ui.pushButton_2.clicked.connect(lambda: self.button_multi(msg="save_data"))
         # 终端显示
@@ -52,7 +52,7 @@ class qt_cy(QMainWindow):
         self.img_num = 0
 
     def xarm_init(self):
-        self.url = "http://127.0.0.1:5000/"
+        self.url = "http://127.0.0.1:7000/"
             
     def realsense_init(self):
         self.pipeline2, rs_config2 = rs.pipeline(), rs.config()
@@ -103,10 +103,14 @@ class qt_cy(QMainWindow):
             self.img_num += 1
 
     def get_pos(self):
-        response = requests.post(self.url +"getpos_euler")
-        pos = response.json()["pose"]
-        pos[:3] = [x * 1000 for x in pos[:3]]
-        return pos
+        response = requests.get(self.url+"get_pos")
+        pos=  np.array(response.json()["pos"])
+        # quat to euler
+        quat = np.roll(pos[3:],-1) # 整体向左移动,wxyz → xyzw
+        rpy = Rotation.from_quat(quat).as_euler('xyz')
+        end_pos = np.concatenate((pos[:3],rpy))
+        end_pos[:3] = [x * 1000 for x in end_pos[:3]]
+        return end_pos
 
     def outputWritten(self, text):
         cursor = self.ui.textEdit.textCursor()

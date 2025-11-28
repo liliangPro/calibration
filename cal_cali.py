@@ -7,10 +7,10 @@ np.set_printoptions(suppress=True)  # 不显示科学计数法
 class calibration_cy:
     def __init__(self):
         # 参数设置
-        self.folder_adress = f"data/calib_20250703"
+        self.folder_adress = f"data/calib_20251127"
         # self.folder_adress = f"data/eye_in_hand"
         # self.calib_type, self.chess_x, self.chess_y, self.chess_len = "eye_on_hand", 8, 11, 10
-        self.calib_type, self.chess_x, self.chess_y, self.chess_len = "eye_on_hand", 8, 11, 10
+        self.calib_type, self.chess_x, self.chess_y, self.chess_len = "eye_in_hand", 8, 11, 10
         # self.calib_type, self.chess_x, self.chess_y, self.chess_len = "eye_in_hand", 7, 9, 20
 
     def RT_b_to_c(self):
