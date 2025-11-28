@@ -25,16 +25,18 @@ R*cam+T = base, 所以R*cam已经在base坐标系了,故按照base坐标系,把c
 
 ## 2. 眼在手上验证方法
 1. 获取基座坐标系下,end姿态
-在任意姿态，通过get_pos获取当前的机械臂末端矩阵，如当前姿态下，RT_end_to_base = [[1,0,0],[0,-1,0],[0,0,1]]，  
-end =RT_end_to_base*[x,y,z] = [x,-y,-z]
+在任意姿态，通过get_pos获取当前的机械臂末端矩阵，如当前姿态下，RT_end_to_base = [[1,0,0],[0,1,0],[0,0,1]]，  
+end =RT_end_to_base*[x,y,z] = [x,y,z]
 2. 获取基座坐标系下,cam姿态
 * 看基座坐标系的X方向,cam是-y  
 相对于基座,cam姿态是 [-y,-x,-z]  
 3. 获取R_cam_to_end
 end = RT*cam
- RT * [x,-y,-z]=[-y,-x,-z] ,RT =  [[0,1,0],[-1,0,0],[0,0,-1]]
+ RT * [x,y,z]=[-y,-x,-z] ,RT =  [[0,-1,0],[-1,0,0],[0,0,-1]]
 4. 求解T_cam_to_end
-此时T不是从end坐标系算,而是从base坐标系算
+需要从末端坐标系出发，x+80,y+,z+191  
+
+
 <p align="center">
   <img src="data/eye_in_hand.png" alt="Demo" width="50%" />
 </p>
