@@ -7,13 +7,6 @@
 
 **/*.txt
 **/*.egg-info
-**/serl_robot_infra.egg-info/
-# 忽略所有 demo_data 文件夹
-**/demo_data/
-
-# 忽略所有 debug 文件夹
-**/debug/
 
 **/**/**/.egg-info
 
-data
